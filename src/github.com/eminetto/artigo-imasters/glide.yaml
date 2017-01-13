@@ -1,0 +1,4 @@
+package: github.com/eminetto/artigo-imasters
+import:
+- package: github.com/mattn/go-sqlite3
+  version: ~1.2.0
