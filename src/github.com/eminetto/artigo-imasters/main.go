@@ -5,6 +5,8 @@ import (
     "net/http"
     "database/sql"
     _ "github.com/mattn/go-sqlite3"
+    "encoding/json"
+    "errors"
 )
 
 type Produto struct {
@@ -24,21 +26,22 @@ type Produto struct {
     Fonte string
 }
 
-func GetProduto(codigo string, uf string, ex int) Produto {
+func GetProduto(codigo string, uf string, ex string) (produto Produto, err error) {
     var result = Produto{}
-    db, err := sql.Open("sqlite3", "./artigo.db")
+    db, dbError := sql.Open("sqlite3", "./artigo.db")
     defer db.Close()
-    checkErr(err)
-    rows, err := db.Query("SELECT * FROM produto where codigo = ? and uf = ? and ex = ?", codigo, uf, ex)
-    checkErr(err)
-    for rows.Next() {
-        err = rows.Scan(&result.Codigo, &result.Uf, &result.Ex, &result.Descricao, &result.Nacional, &result.Estadual, &result.Importado, &result.Municipal, &result.Tipo, &result.VigenciaInicio, &result.VigenciaFim, &result.Chave, &result.Versao, &result.Fonte)
-        checkErr(err)
+    checkErr(dbError)
+    stmt, stmtError := db.Prepare("SELECT * FROM produto where codigo = ? and uf = ? and ex = ?")
+    checkErr(stmtError)
+    sqlError := stmt.QueryRow(codigo, uf, ex).Scan(&result.Codigo, &result.Uf, &result.Ex, &result.Descricao, &result.Nacional, &result.Estadual, &result.Importado, &result.Municipal, &result.Tipo, &result.VigenciaInicio, &result.VigenciaFim, &result.Chave, &result.Versao, &result.Fonte)
+    switch {
+        case sqlError == sql.ErrNoRows:
+            return produto, errors.New("Produto not found")
+        default:
+            checkErr(sqlError)
     }
 
-    rows.Close() //good habit to close
-
-    return result
+    return result, nil
 }
 
 func checkErr(err error) {
@@ -53,6 +56,26 @@ func main() {
 }
 
 func HandleIndex(w http.ResponseWriter, r *http.Request) {
-    io.WriteString(w, "Hello World")
+    r.ParseForm()
+    codigo := r.FormValue("codigo")
+    uf := r.FormValue("uf")
+    ex := r.FormValue("ex")
+    w.Header().Add("Access-Control-Allow-Origin", "*")
+    w.Header().Set("Content-Type", "application/json")
+
+    produto, err := GetProduto(codigo, uf, ex)
+    if err != nil {
+        w.WriteHeader(http.StatusNotFound)
+        returnError := map[string]string{"error": err.Error()}
+        errorMessage, errJson := json.Marshal(returnError)
+        checkErr(errJson)
+        io.WriteString(w, string(errorMessage))
+        return
+    }
+
+    result, err := json.Marshal(produto)
+    checkErr(err)
+
+    io.WriteString(w, string(result))
 }
 
