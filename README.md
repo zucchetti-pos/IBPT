@@ -1,13 +1,15 @@
-# Tabela IBPT
+Tabela IBPT
+===========
 
 Códigos referentes ao artigo sobre Go para a Revista iMasters
 
-## Compile and test
+Compile and test
+----------------
 
 Para configurar o GOPATH, entrar no diretório raiz do projeto e executar:
 
 ```
-    export GOPATH=$(pwd)
+    export GOPATH="$GOPATH:$(pwd)"
 
 ```
 
@@ -18,17 +20,9 @@ Para instalar o Glide
 
 ```
 
-Ou, no MacOS
-
-```
-    brew install glide
-
-```
-
 Instalar as dependências
 
 ```
-    cd src/github.com/eminetto/artigo-imasters
     glide install
     go install -v
 
