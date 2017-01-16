@@ -1,6 +1,9 @@
 IBPT
 ====
 
+Setup
+-----
+
 ```
 git clone https://github.com/Compufour/ibpt.git
 cd ibpt
@@ -9,14 +12,16 @@ glide install
 go build main -o ibpt
 ```
 
-## Executar
+Run
+---
 
 ```
     ./ibpt
 
 ```
 
-## Create the database
+Create the database
+-------------------
 
 
 ```
@@ -32,7 +37,6 @@ go build importer
 ./import-tables ~/Downloads
 
 ```
-
 
 Usage example
 --------------
