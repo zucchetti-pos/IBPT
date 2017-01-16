@@ -4,9 +4,7 @@ IBPT
 ```
 git clone https://github.com/Compufour/ibpt.git
 cd ibpt
-curl https://glide.sh/get | sh
-glide install
-go build main -o ibpt
+make build
 ```
 
 ## Executar
@@ -32,7 +30,6 @@ go build importer
 ./import-tables ~/Downloads
 
 ```
-
 
 Usage example
 --------------
