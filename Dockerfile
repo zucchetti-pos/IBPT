@@ -1,11 +1,7 @@
 FROM golang:1.7
-ENV GOPATH /go
-COPY src/github.com/compufour/IBPT/* /go/src/github.com/compufour/IBPT/
-RUN cd /go/src/github.com/compufour/IBPT \
-    && curl https://glide.sh/get | sh \
-    && glide install \
-    && go build -o /go/IBPT main.go
-
+COPY ibpt /go/ibpt
+COPY ibpt.db /go/ibpt.db
+RUN chmod +x  /go/ibpt
 EXPOSE 8082
 
-CMD ["/go/artigo-imasters"]
+CMD ["/go/ibpt"]
