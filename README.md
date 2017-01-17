@@ -44,7 +44,7 @@ Alternatively one can use the real api
 
 ```
 curl -X GET --header 'Accept: application/json'
-'http://iws.ibpt.org.br/api/deolhonoimposto/Produtos?token=vgN7SceD-SV2wYa4E7zDarTnofKAOXDH5EJpfJmtYrKWHnw35Jhy_XxC4qc5WlBm&cnpj=00445335000113&codigo=70101000&uf=sc&ex=0'
+'http://iws.ibpt.org.br/api/deolhonoimposto/Produtos?token=$DE_OLHO_NO_IMPOSTO_CNPJ_TOKEN&cnpj=00445335000113&codigo=70101000&uf=sc&ex=0'
 
 ```
 
