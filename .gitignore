@@ -1,6 +1,3 @@
 bin/
 pkg/
-src/github.com/eminetto/artigo-imasters/.glide
-src/github.com/eminetto/artigo-imasters/artigo-imasters
-src/github.com/eminetto/artigo-imasters/vendor
-vendor/*
+src/compufour/vendor/*
