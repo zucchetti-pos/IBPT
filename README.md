@@ -4,13 +4,14 @@ IBPT
 ```
 git clone https://github.com/Compufour/ibpt.git
 cd ibpt
+export GOPATH=`pwd`
 make build
 ```
 
 ## Executar
 
 ```
-    ./ibpt
+    ./bin/ibpt
 
 ```
 
