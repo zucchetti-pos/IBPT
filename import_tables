@@ -1,0 +1,21 @@
+#!/bin/bash
+
+tables_dir=$1
+
+curr_dir=$(pwd)
+cd $tables_dir
+
+[ ! -d ] && {
+    mkdir tmp
+}
+
+for i in $(ls *.csv); do
+    cd $tables_dir
+    file_name="$tables_dir/tmp/$i"
+    iconv -f ISO-8859-15 -t UTF-8 $i > $file_name
+    state=$(echo "$i" | sed -r "s/.*ax([A-Z]{2}).*/\1/")
+
+    cd $curr_dir
+    ./bin/importer -file "$file_name" -uf $state
+done
+
