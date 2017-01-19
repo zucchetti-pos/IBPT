@@ -1,8 +1,8 @@
 package main
 
 import (
-	"net/http"
 	"compufour/pkg/service"
+	"net/http"
 )
 
 func main() {
