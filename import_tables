@@ -4,6 +4,7 @@ tables_dir=$1
 
 curr_dir=$(pwd)
 cd $tables_dir
+mkdir $tables_dir/tmp
 
 [ ! -d ] && {
     mkdir tmp
